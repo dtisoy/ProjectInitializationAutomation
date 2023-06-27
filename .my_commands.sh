@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function create() {
+    cd /home/dtisoy/projects/ProjectInitializationAutomation
 
     source .env
     python create.py $1
@@ -11,5 +12,6 @@ function create() {
     git add .
     git commit -m "Initial commit"
     git push -u origin master
-    code .
+    echo "project Created Succesfully"
+
 }
