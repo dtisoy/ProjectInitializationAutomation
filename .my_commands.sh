@@ -5,7 +5,8 @@ function code_project() {
 
     source .env
     source venv/bin/activate
-    python3 create.py --new_repo $1
+    python3 create.py --new-repo $1
+    deactivate
     cd $FILEPATH$1
     git init
     git remote add origin git@github.com:$USERNAME/$1.git
