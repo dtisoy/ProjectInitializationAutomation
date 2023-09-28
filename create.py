@@ -9,7 +9,7 @@ path = os.getenv("FILEPATH")
 github_token = os.getenv("GITHUB_TOKEN")
 
 @click.command()
-@click.option("-n", "--new-repo", help="create a new git repository")
+@click.option("-n", "--new-repo", help="create a new github repository")
 def create(new_repo):
     folderName = new_repo 
     os.makedirs(path + str(folderName))
