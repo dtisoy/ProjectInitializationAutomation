@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function create() {
+function code_project() {
     cd /home/dtisoy/projects/ProjectInitializationAutomation
 
     source .env
