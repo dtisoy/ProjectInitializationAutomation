@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -e
+cli_help() {
+    cli_name=${0##*/} #get the name of this file
+    echo "
+$cli_name
+dtisoy
+Usage: $cli_name [command]
+Commands:
+  new       create a new git repo and upload it to github
+  *         Help
+"
+    exit 1
+}
+
+function create() {
+    cd /home/dtisoy/projects/ProjectInitializationAutomation
+
+    source .env
+    source venv/bin/activate
+    python3 create.py $2
+    deactivate
+    cd $FILEPATH$2
+    git init
+    git remote add origin git@github.com:$USERNAME/$2.git
+    touch README.md
+    git add .
+    git commit -m "Initial commit"
+    git push -u origin master
+
+    exit 1
+}
+
+case "$1" in
+new | n)
+    create
+    ;;
+*)
+    cli_help
+    ;;
+esac
