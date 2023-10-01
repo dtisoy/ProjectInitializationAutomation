@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
 set -e
+
+project_name="$2"
+command="$1"
+
 cli_help() {
     cli_name=${0##*/} #get the name of this file
     echo "
 $cli_name
 dtisoy
-Usage: $cli_name [command]
+Usage: $cli_name [command] [argument]
 Commands:
-  new       create a new git repo and upload it to github
+  --new [arg]       create a new git repo and upload it to github
   *         Help
 "
     exit 1
@@ -19,11 +23,11 @@ function create() {
 
     source .env
     source venv/bin/activate
-    python3 create.py $2
+    python3 create.py $1
     deactivate
-    cd $FILEPATH$2
+    cd $FILEPATH$1
     git init
-    git remote add origin git@github.com:$USERNAME/$2.git
+    git remote add origin git@github.com:$USERNAME/$1.git
     touch README.md
     git add .
     git commit -m "Initial commit"
@@ -32,9 +36,14 @@ function create() {
     exit 1
 }
 
-case "$1" in
-new | n)
-    create
+if [[ $project_name == "" ]]; then
+    echo "missing project name"
+    cli_help
+fi
+
+case "$command" in
+--new | -n)
+    create $project_name
     ;;
 *)
     cli_help
